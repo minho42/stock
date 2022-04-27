@@ -22,9 +22,6 @@ export const Navbar = () => {
             <Link to="/">
               <div className="font-bold uppercase text-2xl bg-black text-white px-3 py-1 rounded-md">IJ</div>
             </Link>
-            <div className="bg-purple-200 ml-1 px-2 py-0.5 rounded-full text-sm font-normal normal-case">
-              beta
-            </div>
           </div>
         </div>
         <div className="flex items-center justify-center h-14">
