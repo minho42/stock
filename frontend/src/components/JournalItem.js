@@ -178,7 +178,7 @@ export const JournalItem = ({ journal, selectedSymbol, setSelectedSymbol, onDele
       <div className="flex w-full items-center relative pr-1">
         {journal?.content && (
           <h1
-            className={`text-xl font-medium
+            className={`text-lg 
             ${selectedSymbol ? "whitespace-pre-line" : "line-clamp-3 sm:line-clamp-4"}
             `}
           >

@@ -55,10 +55,12 @@
   }
 }
 
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap"); */
+/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'); */
 
 body {
-  font-family: "Lato", sans-serif;
+  /* font-family: "Lato", sans-serif; */
+  /* font-family: 'Inter', sans-serif; */
   /* font-size: 14px; */
   /* font-size: 0.875rem; */
   /* background-color: #f9f9f9; */

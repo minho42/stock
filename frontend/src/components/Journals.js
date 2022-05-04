@@ -136,11 +136,14 @@ export const Journals = () => {
     }
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    setJournals([]);
+    fetchJournals();
+  }, [user]);
 
   useEffect(() => {
     fetchJournals();
-  }, [user, isJournalChanged]);
+  }, [isJournalChanged]);
 
   useEffect(() => {
     makeUniqueSymbols();
@@ -158,14 +161,23 @@ export const Journals = () => {
             Add a journal
           </button>
         ) : (
-          <div className="flex flex-col w-full h-full items-center justify-center text-lg bg-purple-100 px-4 py-3">
-            <p>This is a demo.</p>
-            <p>
-              <Link to="/signup" className="font-semibold border-b-2 border-black">
-                Signup
-              </Link>{" "}
-              to add your journals
-            </p>
+          <div className="flex flex-col  w-full items-center justify-center space-y-4">
+            <h1 className="text-3xl font-semibold text-center">Investing Journals</h1>
+
+            <ul className="list-disc list-inside text-xl px-2">
+              <li>Learn by keeping a journal on your investing journey</li>
+              <li>Identify what does and doesn't work for you</li>
+            </ul>
+
+            <div className="flex flex-col w-full h-full items-center justify-center text-lg bg-purple-100 px-4 py-3">
+              <p>This is a demo.</p>
+              <p>
+                <Link to="/signup" className="font-semibold border-b-2 border-black">
+                  Signup
+                </Link>{" "}
+                to add your journals
+              </p>
+            </div>
           </div>
         )}
 

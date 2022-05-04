@@ -13,13 +13,13 @@ const ownedStockRoutes = require("./routes/ownedStockRoutes");
 
 const app = express();
 
-app.use(function (req, res, next) {
-  res.setHeader(
-    "Content-Security-Policy",
-    "default-src 'self'; investingjournals.com *.investingjournals.com"
-  );
-  next();
-});
+// app.use(function (req, res, next) {
+//   res.setHeader(
+//     "Content-Security-Policy",
+//     "default-src 'self' *.investingjournals.com; connect-src 'self' *.investingjournals.com; style-src-elem 'self' *.fonts.googleapis.com; "
+//   );
+//   next();
+// });
 
 app.use(cookieParser());
 app.use(
