@@ -60,7 +60,7 @@ export const SearchSuggestionList = ({ query, quotes, onSelect, onSymbolChange }
 
   // console.log(query);
   return (
-    <div className="w-full absolute top-16 left-0 bg-white shadow-lg pb-2 space-y-1 rounded-b-md">
+    <div className="w-full absolute top-16 left-0 bg-white shadow-lg pb-2 space-y-1 rounded-b-md z-10">
       {query && quotes?.length === 0 && (
         <div className="flex flex-col items-center justify-center px-2 py-3 gap-1">
           <ExclamationCircleIcon className="w-6 h-6" />
@@ -78,7 +78,7 @@ export const SearchSuggestionList = ({ query, quotes, onSelect, onSymbolChange }
             ${index === focusedIndex ? "bg-blue-100" : "bg-white"}
             `}
             >
-              <div className="flex flex-shrink-0 w-2/6 font-semibold">{quote?.symbol}</div>
+              <div className="flex flex-wrap break-all w-2/6 font-semibold">{quote?.symbol}</div>
               <div className="flex flex-wrap">{quote?.shortname || quote?.longname}</div>
               {/* <div className="flex text-gray-500 text-right">
               <span className="capitalize">{quote?.quoteType?.toLowerCase()}</span> - {quote?.exchange}
