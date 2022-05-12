@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { ExclamationCircleIcon } from "@heroicons/react/outline";
 
 export const SearchSuggestionList = ({ query, quotes, onSelect, onSymbolChange }) => {
-  const [filteredQuotes, setFilteredQuotes] = useState(null);
   const [focusedIndex, setFocusedIndex] = useState(0);
 
   const keyboardShortcuts = (e) => {
@@ -13,26 +12,26 @@ export const SearchSuggestionList = ({ query, quotes, onSelect, onSymbolChange }
     if (e.keyCode === 40) {
       // move down
       let newIndex = focusedIndex + 1;
-      if (newIndex > filteredQuotes.length - 1) {
+      if (newIndex > quotes.length - 1) {
         newIndex = 0;
       }
       setFocusedIndex(newIndex);
-      onSymbolChange(filteredQuotes[newIndex].symbol);
+      onSymbolChange(quotes[newIndex].symbol);
     } else if (e.keyCode === 38) {
       // move up
       let newIndex = focusedIndex - 1;
       if (newIndex < 0) {
-        newIndex = filteredQuotes.length - 1;
+        newIndex = quotes.length - 1;
       }
       setFocusedIndex(newIndex);
-      onSymbolChange(filteredQuotes[newIndex].symbol);
+      onSymbolChange(quotes[newIndex].symbol);
     } else if (e.keyCode === 13) {
       // Enter
       e.preventDefault();
-      onSelect(filteredQuotes[focusedIndex].symbol);
+      onSelect(quotes[focusedIndex].symbol);
     } else if (e.keyCode === 9) {
       // Tab
-      onSelect(filteredQuotes[focusedIndex].symbol);
+      onSelect(quotes[focusedIndex].symbol);
     } else if (e.keyCode === 27) {
       // esc
       onSelect("");
@@ -45,18 +44,11 @@ export const SearchSuggestionList = ({ query, quotes, onSelect, onSymbolChange }
   };
 
   useEffect(() => {
-    if (!quotes) return;
-
-    const tempQuotes = quotes.filter((quote) => quote.isYahooFinance);
-    setFilteredQuotes(tempQuotes);
-  }, [quotes]);
-
-  useEffect(() => {
     document.addEventListener("keydown", keyboardShortcuts);
     return () => {
       document.removeEventListener("keydown", keyboardShortcuts);
     };
-  }, [focusedIndex, query, filteredQuotes]);
+  }, [focusedIndex, query, quotes]);
 
   // console.log(query);
   return (
@@ -68,8 +60,8 @@ export const SearchSuggestionList = ({ query, quotes, onSelect, onSymbolChange }
         </div>
       )}
 
-      {filteredQuotes &&
-        filteredQuotes.map((quote, index) => {
+      {quotes &&
+        quotes.map((quote, index) => {
           return (
             <div
               onClick={() => handleClick(quote)}
