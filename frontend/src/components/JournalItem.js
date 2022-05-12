@@ -166,7 +166,7 @@ export const JournalItem = ({ journal, selectedSymbol, setSelectedSymbol, onDele
 
         {selectedSymbol && journal?.price && isPriceUp !== null && (
           <div>
-            <div classNmae="flex flex-wrap ">
+            <div className="flex flex-wrap ">
               <div className={`${isPriceUp ? "text-green-600" : "text-pink-600"} text-sm`}>
                 ({priceDiffPercentage && <span>{priceDiffPercentage}%</span>} since)
               </div>
