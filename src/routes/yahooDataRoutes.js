@@ -59,7 +59,8 @@ router.get("/data/search/:text", cache("7 days"), async (req, res) => {
     if (!quotes) {
       return res.status(404).send();
     }
-    res.send({ quotes });
+    const filteredQuotes = quotes.filter((quote) => quote.isYahooFinance && quote.typeDisp !== "Option");
+    res.send({ quotes: filteredQuotes });
   } catch (error) {
     console.log(error);
     res.status(400).send(e);
