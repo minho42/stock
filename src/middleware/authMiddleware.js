@@ -19,7 +19,7 @@ const auth = async (req, res, next) => {
     console.log(error);
     res.clearCookie("token");
     // res.redirect("/login")
-    res.status(401).send({ error: "Pleaes authenticate " });
+    res.status(401).send({ error: "Please authenticate " });
   }
 };
 
@@ -44,7 +44,7 @@ const authAdmin = async (req, res, next) => {
   } catch (error) {
     console.log(error);
     // res.clearCookie("token");
-    res.status(401).send({ error: "Pleaes authenticate " });
+    res.status(401).send({ error: "Please authenticate " });
   }
 };
 
