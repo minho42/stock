@@ -24,12 +24,7 @@ const app = express();
 app.use(cookieParser());
 app.use(
   cors({
-    origin: [
-      "http://localhost:3000",
-      "https://investing-journals.herokuapp.com",
-      "https://www.investingjournals.com",
-      "https://investingjournals.com",
-    ],
+    origin: ["http://localhost:3000"],
     credentials: true,
   })
 );
