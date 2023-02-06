@@ -5,8 +5,9 @@ import "tippy.js/dist/tippy.css";
 import { showValueWithComma, truncateStr } from "../utils";
 import { SiteContext } from "../SiteContext";
 import { BACKEND_BASE_URL } from "../globalVariables";
+import { IJournal } from "../JournalType";
 
-const requestJournalDelete = async (id) => {
+const requestJournalDelete = async (id: string) => {
   try {
     const res = await fetch(`${BACKEND_BASE_URL}/journals/${id}`, {
       method: "DELETE",
@@ -89,7 +90,7 @@ export const JournalItem = ({ journal, selectedSymbol, setSelectedSymbol, onDele
     removePrevDotHighlight();
   };
 
-  const handleHover = (journal) => {
+  const handleHover = (journal: IJournal) => {
     setIsMouseOver(true);
     const id = journal._id;
     removePrevDotHighlight();

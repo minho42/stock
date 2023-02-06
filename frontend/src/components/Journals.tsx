@@ -12,6 +12,7 @@ import { BACKEND_BASE_URL } from "../globalVariables";
 
 import { demoUserData } from "./demoUserData";
 import { Link } from "react-router-dom";
+import { IJournal } from "../JournalType";
 
 export const Journals = () => {
   const { user } = useContext(UserContext);
@@ -26,7 +27,7 @@ export const Journals = () => {
   const [uniqueSymbolsSortedByDate, setUniqueSymbolsSortedByDate] = useState([]);
   const [uniqueActions, setUniqueActions] = useState([]);
   const [selectedSymbol, setSelectedSymbol] = useState<string | null>(null);
-  const [selectedAction, setSelectedAction] = useState<string | null>(null);
+  const [selectedAction, setSelectedAction] = useState<IJournal["action"] | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const requestCreateJournal = async (payload) => {

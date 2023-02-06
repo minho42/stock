@@ -2,6 +2,7 @@ import React, { createContext, useState, useEffect, useContext } from "react";
 import { toast } from "react-toastify";
 import { UserContext } from "./UserContext";
 import { BACKEND_BASE_URL } from "./globalVariables";
+import { IJournal } from "./JournalType";
 
 export const SiteContext = createContext<ISiteContextType>(null);
 
@@ -32,7 +33,7 @@ interface ISiteContextType {
   actionStylesHex?;
   toast?;
   toastOptions?;
-  journals?;
+  journals?: IJournal[];
   setJournals?;
   isJournalChanged?;
   setIsJournalChanged?;
@@ -44,7 +45,7 @@ interface ISiteContextType {
 
 export const SiteProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user } = useContext(UserContext);
-  const [journals, setJournals] = useState([]);
+  const [journals, setJournals] = useState<IJournal[] | []>([]);
   const [isJournalChanged, setIsJournalChanged] = useState(false);
   const [uniqueSymbols, setUniqueSymbols] = useState([]);
   const [ownedSymbols, setOwnedSymbols] = useState([]);
