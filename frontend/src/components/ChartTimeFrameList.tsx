@@ -1,7 +1,10 @@
-import { useState, useEffect } from "react";
-import { useLocalStorage } from "./useLocalStorage";
+import { ITimeFrame } from "./TimeFrameType";
 
-export const ChartTimeFrameList = ({ timeFrames, selectedTimeFrameName, handleTimeFrameChange }) => {
+export const ChartTimeFrameList: React.FC<{
+  timeFrames: ITimeFrame[];
+  selectedTimeFrameName: string;
+  handleTimeFrameChange;
+}> = ({ timeFrames, selectedTimeFrameName, handleTimeFrameChange }) => {
   return (
     <div className="flex justify-center space-x-1">
       {timeFrames.map((tf, index) => {

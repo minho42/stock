@@ -23,7 +23,7 @@ export const Chart = ({ symbol, selectedTimeFrame, journals }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
 
-  const fetchChartData = useCallback(async (symbol) => {
+  const fetchChartData = useCallback(async (symbol: string) => {
     // setIsLoading(true);
     try {
       const res = await fetch(`${BACKEND_BASE_URL}/data/chart/${symbol}`);
@@ -54,7 +54,9 @@ export const Chart = ({ symbol, selectedTimeFrame, journals }) => {
             const a = new Date(d.timestamp * 1000);
             const b = new Date(dateStrToTimestamp(j.date) * 1000);
             return (
-              a.getYear() === b.getYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate()
+              a.getFullYear() === b.getFullYear() &&
+              a.getMonth() === b.getMonth() &&
+              a.getDate() === b.getDate()
             );
           });
 
@@ -99,7 +101,7 @@ export const Chart = ({ symbol, selectedTimeFrame, journals }) => {
       setChartData([]);
       setIsLoading(false);
     }
-  });
+  }, []);
 
   useEffect(() => {
     fetchChartData(symbol);
@@ -134,10 +136,10 @@ export const Chart = ({ symbol, selectedTimeFrame, journals }) => {
         }}
       >
         <CartesianGrid
-          strokeDasharray="1"
+          // strokeDasharray="1"
           stroke="#abafb1"
-          xAxis={false}
-          yAxis={false}
+          // xAxis={false}
+          // yAxis={false}
           vertical={false}
           color="#dbdbdb"
         />
@@ -145,17 +147,17 @@ export const Chart = ({ symbol, selectedTimeFrame, journals }) => {
           dataKey="timestamp"
           fontSize="0.7rem"
           color="#666666"
-          tickSize="0"
-          tickMargin="10"
+          tickSize={0}
+          tickMargin={10}
           tickFormatter={xAxisFormatter}
         />
         <YAxis
           fontSize="0.7rem"
           color="#666666"
-          tickSize="0"
+          tickSize={0}
           // tickCount="7"
-          tickCount="5"
-          tickMargin="10"
+          tickCount={5}
+          tickMargin={10}
           tickFormatter={yAxisFormatter}
           domain={[
             (dataMin) => {

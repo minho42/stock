@@ -61,19 +61,23 @@ export const Profile = () => {
 
         <div className="flex flex-col space-y-3">
           <div>
-            <button onClick={() => requestLogout(user, setUser, navigate)} className="link-blue">
+            <button onClick={() => requestLogout(setUser, navigate)} className="link-blue">
               Log out
             </button>
           </div>
           <div>
-            <button onClick={() => requestLogoutAll(user, setUser, navigate)} className="link-blue">
+            <button onClick={() => requestLogoutAll(setUser, navigate)} className="link-blue">
               Log out from all devices
             </button>
           </div>
         </div>
 
         <div className="">
-          <button onClick={handleDelete} href="/profile/delete" className="link-red">
+          <button
+            onClick={handleDelete}
+            // ref="/profile/delete"
+            className="link-red"
+          >
             Delete account
           </button>
         </div>

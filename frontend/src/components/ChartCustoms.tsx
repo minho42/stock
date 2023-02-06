@@ -1,18 +1,20 @@
 import { useContext } from "react";
 import { SiteContext } from "../SiteContext";
 
-export const xAxisFormatter = (item) => {
+export const xAxisFormatter = (item: string) => {
   if (!item) return;
   if (typeof item !== "string") return;
   return item.slice(3, 10);
 };
 
-export const yAxisFormatter = (item) => {
+export const yAxisFormatter = (item: string) => {
   if (!item) return;
   return Number(item).toFixed(0);
 };
 
-export const CustomTooltip = ({ active, payload, label }) => {
+export const CustomTooltip: React.FC<any> = (props: any) => {
+  const { active, payload, label } = props;
+
   if (!active || !payload) return null;
 
   return (
@@ -23,7 +25,8 @@ export const CustomTooltip = ({ active, payload, label }) => {
   );
 };
 
-export const CustomLineDot = ({ cx, cy, stroke, payload, value }) => {
+export const CustomLineDot: React.FC<any> = (props: any) => {
+  const { cx, cy, payload } = props;
   const { actionStylesHex } = useContext(SiteContext);
 
   const r = 8;

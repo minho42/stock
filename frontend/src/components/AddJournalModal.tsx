@@ -33,7 +33,7 @@ export const AddJournalModal = ({ handleAdd, onClose, selectedSymbol, selectedAc
     content: "",
   };
 
-  const requestFetchQuotesFromSearch = async (query) => {
+  const requestFetchQuotesFromSearch = async (query: string) => {
     try {
       const res = await fetch(`${BACKEND_BASE_URL}/data/search/${query}`);
       if (!res.ok) {
@@ -49,7 +49,7 @@ export const AddJournalModal = ({ handleAdd, onClose, selectedSymbol, selectedAc
     }
   };
 
-  const debounce = (callback, delay = 400) => {
+  const debounce = (callback, delay: number = 400) => {
     let timeout;
 
     return (...args) => {
@@ -60,7 +60,7 @@ export const AddJournalModal = ({ handleAdd, onClose, selectedSymbol, selectedAc
     };
   };
 
-  const fetchSuggestion = debounce(async (query) => {
+  const fetchSuggestion = debounce(async (query: string) => {
     if (query?.trim()?.length === 0) {
       setSearchSuggestionQuotes(null);
       setIsSearchSuggestionsOpen(false);
@@ -133,7 +133,7 @@ export const AddJournalModal = ({ handleAdd, onClose, selectedSymbol, selectedAc
                             `}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            value={values.action}
+                            // value={values.action}
                             id="action"
                           >
                             <label htmlFor={actionOption} className="font-semibold uppercase px-2 py-1">
@@ -236,9 +236,8 @@ export const AddJournalModal = ({ handleAdd, onClose, selectedSymbol, selectedAc
                       onChange={handleChange}
                       onBlur={handleBlur}
                       value={values.content}
-                      type="text"
                       id="content"
-                      rows="2"
+                      rows={2}
                       className="w-full input"
                     />
                     <FormError touched={touched} message={errors.content} />

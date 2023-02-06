@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import { useLocalStorage } from "./useLocalStorage";
 import { ChartCardList } from "./ChartCardList";
 import { ChartTimeFrameList } from "./ChartTimeFrameList";
+import { ITimeFrame } from "./TimeFrameType";
 
-const timeFrames = [
+const timeFrames: ITimeFrame[] = [
   {
     name: "1m",
     inDays: 21,
@@ -47,7 +48,7 @@ const timeFrames = [
 
 export const ChartStuff = ({ uniqueSymbols, selectedSymbol, setSelectedSymbol, journals }) => {
   const [isChartHidden, setIsChartHidden] = useLocalStorage(`isChartHidden`, false);
-  const [selectedTimeFrame, setSelectedTimeFrame] = useState(null);
+  const [selectedTimeFrame, setSelectedTimeFrame] = useState<ITimeFrame | null>(null);
   const [selectedTimeFrameName, setSelectedTimeFrameName] = useLocalStorage(
     `chartSelectedTimeFrameName`,
     "1y"

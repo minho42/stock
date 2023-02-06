@@ -56,7 +56,7 @@ export const JournalItem = ({ journal, selectedSymbol, setSelectedSymbol, onDele
   const fetchAndSetQuote = useCallback(async () => {
     const quote = await fetchQuote(journal.symbol);
     setQuote(quote);
-  });
+  }, []);
 
   useEffect(() => {
     if (!journal?.symbol) return;

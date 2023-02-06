@@ -1,10 +1,11 @@
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import { UserContext } from "../UserContext";
 import { Link, useNavigate } from "react-router-dom";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { FormError } from "./FormError";
 import { BACKEND_BASE_URL } from "../globalVariables";
+import { IUser } from "../UserType";
 
 const initialValues = { email: "", password: "" };
 const validationSchema = Yup.object().shape({
@@ -12,7 +13,11 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().min(7, "too short").required("required"),
 });
 
-export const requestLogin = async (email, password, setUser) => {
+export const requestLogin = async (
+  email: string,
+  password: string,
+  setUser: React.Dispatch<React.SetStateAction<IUser>>
+) => {
   try {
     const res = await fetch(`${BACKEND_BASE_URL}/users/login`, {
       method: "POST",
@@ -98,7 +103,7 @@ export const Login = () => {
                       />
                       <FormError touched={touched} message={errors.password} />
                     </div>
-                    {errorMessage && <FormError message={errorMessage} />}
+                    {errorMessage && <FormError touched={touched} message={errorMessage} />}
 
                     <div>
                       <button type="submit" className="w-full btn-blue" disabled={isSubmitting}>

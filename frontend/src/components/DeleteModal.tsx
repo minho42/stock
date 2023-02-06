@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { XIcon } from "@heroicons/react/outline";
 
-export const DeleteModal = ({ user, children, reallyDelete, onClose }) => {
+export const DeleteModal = ({ user, reallyDelete, onClose }) => {
   const [value, setValue] = useState(null);
   const [isMatch, setIsMatch] = useState(false);
 

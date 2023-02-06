@@ -1,9 +1,9 @@
-import { createContext, useState, useEffect, useContext } from "react";
+import React, { createContext, useState, useEffect, useContext } from "react";
 import { toast } from "react-toastify";
 import { UserContext } from "./UserContext";
 import { BACKEND_BASE_URL } from "./globalVariables";
 
-export const SiteContext = createContext(null);
+export const SiteContext = createContext<ISiteContextType>(null);
 
 const requestGetOwnedStocks = async () => {
   try {
@@ -24,14 +24,32 @@ const requestGetOwnedStocks = async () => {
   }
 };
 
-export const SiteProvider = ({ children }) => {
+type ActionOptionsTYpe = "buy" | "sell" | "watch" | "note";
+
+interface ISiteContextType {
+  actionOptions: ActionOptionsTYpe[];
+  actionStyles?;
+  actionStylesHex?;
+  toast?;
+  toastOptions?;
+  journals?;
+  setJournals?;
+  isJournalChanged?;
+  setIsJournalChanged?;
+  uniqueSymbols?;
+  setUniqueSymbols?;
+  ownedSymbols?;
+  setOwnedSymbols?;
+}
+
+export const SiteProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user } = useContext(UserContext);
   const [journals, setJournals] = useState([]);
   const [isJournalChanged, setIsJournalChanged] = useState(false);
   const [uniqueSymbols, setUniqueSymbols] = useState([]);
   const [ownedSymbols, setOwnedSymbols] = useState([]);
 
-  const actionOptions = ["buy", "sell", "watch", "note"];
+  const actionOptions: ActionOptionsTYpe[] = ["buy", "sell", "watch", "note"];
   const actionStyles = {
     buy: "bg-green-200",
     sell: "bg-pink-200",

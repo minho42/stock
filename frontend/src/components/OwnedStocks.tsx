@@ -31,7 +31,7 @@ export const OwnedStocks = () => {
     setNewOwnedSymbols(ownedSymbols);
   }, [ownedSymbols]);
 
-  if (!uniqueSymbols || uniqueSymbols?.length === 0) return "";
+  if (!uniqueSymbols || uniqueSymbols?.length === 0) return <></>;
 
   const handleToggle = (symbol) => {
     if (newOwnedSymbols.includes(symbol)) {

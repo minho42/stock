@@ -9,7 +9,7 @@ import { Login } from "./components/Login";
 import { PasswordReset } from "./components/PasswordReset";
 import { Profile } from "./components/Profile";
 import { About } from "./components/About";
-import { Journals } from "./components/Journals.js";
+import { Journals } from "./components/Journals";
 import { Dashboard } from "./components/Dashboard";
 
 import { ToastContainer } from "react-toastify";

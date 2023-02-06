@@ -8,7 +8,7 @@ import { requestLogout, truncateStr } from "../utils";
 export const Navbar = () => {
   const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -75,7 +75,7 @@ export const Navbar = () => {
                       </Link>
                       <li className="dropdown-divider" />
                       <li
-                        onClick={() => requestLogout(user, setUser, navigate)}
+                        onClick={() => requestLogout(setUser, navigate)}
                         className="hover:bg-gray-100 px-3 py-3 cursor-pointer flex items-center justify-center gap-1"
                       >
                         <LogoutIcon className="w-6 h-6" />

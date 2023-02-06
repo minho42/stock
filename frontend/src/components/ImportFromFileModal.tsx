@@ -8,7 +8,7 @@ export const ImportFromFileModal = ({ handleAdd, onClose }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const setCsvFromSelectedFiles = async (files) => {
+  const setCsvFromSelectedFiles = async (files: File[]) => {
     // brokers = [{
     // 'stake': {
     //   filename: 'Stake_transaction_summary_report'

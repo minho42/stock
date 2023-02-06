@@ -21,13 +21,13 @@ export const Journals = () => {
   // const [isJournalChanged, setIsJournalChanged] = useState(false);
   // const [uniqueSymbols, setUniqueSymbols] = useState([]);
 
-  const [isAddJournalModalOpen, setIsAddJournalModalOpen] = useState(false);
-  const [isImportFromFileModalOpen, setIsImportFromFileModalOpen] = useState(false);
+  const [isAddJournalModalOpen, setIsAddJournalModalOpen] = useState<boolean>(false);
+  const [isImportFromFileModalOpen, setIsImportFromFileModalOpen] = useState<boolean>(false);
   const [uniqueSymbolsSortedByDate, setUniqueSymbolsSortedByDate] = useState([]);
   const [uniqueActions, setUniqueActions] = useState([]);
-  const [selectedSymbol, setSelectedSymbol] = useState(null);
-  const [selectedAction, setSelectedAction] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [selectedSymbol, setSelectedSymbol] = useState<string | null>(null);
+  const [selectedAction, setSelectedAction] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const requestCreateJournal = async (payload) => {
     // console.log(payload);
@@ -60,7 +60,7 @@ export const Journals = () => {
       try {
         return setJournals(
           demoUserData.sort((a, b) => {
-            return new Date(b.date) - new Date(a.date);
+            return new Date(b.date).valueOf() - new Date(a.date).valueOf();
           })
         );
       } catch (error) {
@@ -80,7 +80,7 @@ export const Journals = () => {
       const data = await res.json();
       setJournals(
         data.sort((a, b) => {
-          return new Date(b.date) - new Date(a.date);
+          return new Date(b.date).valueOf() - new Date(a.date).valueOf();
         })
       );
     } catch (error) {
@@ -112,7 +112,9 @@ export const Journals = () => {
 
     const journalsWithUniqueSymbolsSortedByDate = [
       ...new Set(
-        filteredJournals.sort((a, b) => new Date(b.date) - new Date(a.date)).map((journal) => journal.symbol)
+        filteredJournals
+          .sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf())
+          .map((journal) => journal.symbol)
       ),
     ];
     setUniqueSymbolsSortedByDate(journalsWithUniqueSymbolsSortedByDate);

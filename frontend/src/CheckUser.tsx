@@ -1,6 +1,11 @@
+import React from "react";
 import { BACKEND_BASE_URL } from "./globalVariables";
+import { IUser } from "./UserType";
 
-export const CheckUser = async (setUser, setIsLoading) => {
+export const CheckUser = async (
+  setUser: React.Dispatch<React.SetStateAction<IUser | null>>,
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
+): Promise<boolean> => {
   try {
     const res = await fetch(`${BACKEND_BASE_URL}/users/check`, {
       credentials: "include",

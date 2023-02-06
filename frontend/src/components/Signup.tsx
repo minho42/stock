@@ -6,6 +6,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { FormError } from "./FormError";
 import { BACKEND_BASE_URL } from "../globalVariables";
+import { IUser } from "../UserType";
 
 const initialValues = { email: "", password: "" };
 const validationSchema = Yup.object().shape({
@@ -13,12 +14,12 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().min(7, "too short").required("required"),
 });
 
-export const Signup = () => {
-  const [errorMessage, setErrorMessage] = useState("");
+export const Signup: React.FC = () => {
+  const [errorMessage, setErrorMessage] = useState<string>("");
   const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
-  const requestSignup = async (email, password) => {
+  const requestSignup = async (email: string, password: string): Promise<IUser | null> => {
     try {
       const res = await fetch(`${BACKEND_BASE_URL}/users`, {
         method: "POST",
@@ -48,7 +49,7 @@ export const Signup = () => {
         setErrorMessage("Sign up failed");
         throw new Error("requestSignup failed");
       }
-      const loggedinUser = await requestLogin(email, password, setUser, BACKEND_BASE_URL);
+      const loggedinUser = await requestLogin(email, password, setUser);
       if (!loggedinUser) {
         setErrorMessage("Login as new user failed");
         throw new Error("requestLogin failed");
@@ -106,7 +107,7 @@ export const Signup = () => {
                     />
                     <FormError touched={touched} message={errors.password} />
                   </div>
-                  {errorMessage && <FormError message={errorMessage} />}
+                  {errorMessage && <FormError touched={touched} message={errorMessage} />}
 
                   <div>
                     <button type="submit" className="w-full btn-blue" disabled={isSubmitting}>
