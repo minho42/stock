@@ -26,7 +26,7 @@ const requestJournalDelete = async (id) => {
   }
 };
 
-const fetchQuote = async (symbol) => {
+const fetchQuote = async (symbol: string) => {
   if (!symbol) return;
   try {
     const res = await fetch(`${BACKEND_BASE_URL}/data/quote/${symbol}`);
@@ -53,10 +53,10 @@ export const JournalItem = ({ journal, selectedSymbol, setSelectedSymbol, onDele
   const { actionStyles, toast, toastOptions } = useContext(SiteContext);
   const [isMouseOver, setIsMouseOver] = useState(false);
 
-  const fetchAndSetQuote = useCallback(async () => {
+  const fetchAndSetQuote = async () => {
     const quote = await fetchQuote(journal.symbol);
     setQuote(quote);
-  }, []);
+  };
 
   useEffect(() => {
     if (!journal?.symbol) return;
@@ -71,7 +71,6 @@ export const JournalItem = ({ journal, selectedSymbol, setSelectedSymbol, onDele
     } else {
       setIsPriceUp(false);
     }
-
     // TODO: if journal.price doesn't exist, get quote of the day from the chartData
     setPriceDiffPercentage((((quote.regularMarketPrice - journal.price) / journal.price) * 100).toFixed(2));
   }, [quote]);
@@ -168,7 +167,7 @@ export const JournalItem = ({ journal, selectedSymbol, setSelectedSymbol, onDele
           <div>
             <div className="flex flex-wrap ">
               <div className={`${isPriceUp ? "text-green-600" : "text-pink-600"} text-sm`}>
-                ({priceDiffPercentage && <span>{priceDiffPercentage}%</span>} since)
+                {priceDiffPercentage && <span>({priceDiffPercentage}% since)</span>}
               </div>
             </div>
           </div>
