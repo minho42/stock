@@ -1,0 +1,55 @@
+const demoUserId = "123456789012345678901234";
+const demoUserName = "Demo user1";
+
+export const demoUserData = [
+  {
+    _id: "1",
+    owner: demoUserId,
+    isPublic: true,
+    action: "buy",
+    symbol: "VOO",
+    amount: 1000,
+    price: 436.0,
+    units: 0,
+    date: "2022-01-01T07:00:00.000Z",
+    content:
+      '"I think for most investors, dollar-cost averaging into a low-cost index fund will provide the highest odds of long-term success." - Morgan Housel',
+    createdAt: "2022-04-05T00:00:00.000Z",
+    updatedAt: "2022-04-05T00:00:00.000Z",
+    __v: 0,
+    ownerName: demoUserName,
+  },
+  {
+    _id: "2",
+    owner: demoUserId,
+    isPublic: true,
+    action: "note",
+    symbol: "VOO",
+    amount: "",
+    price: "",
+    units: 0,
+    date: "2022-02-01T07:00:00.000Z",
+    content:
+      '"Over the years I came around to the view that we’ll have a high chance of meeting all of our family’s financial goals if we consistently invest money into a low-cost index fund for decades on end, leaving the money alone to compound." - Morgan Housel',
+    createdAt: "2022-04-05T00:00:00.000Z",
+    updatedAt: "2022-04-05T00:00:00.000Z",
+    __v: 0,
+    ownerName: demoUserName,
+  },
+  {
+    _id: "3",
+    owner: demoUserId,
+    isPublic: true,
+    action: "watch",
+    symbol: "VOO",
+    amount: "",
+    price: "",
+    units: 0,
+    date: "2022-05-05T07:00:00.000Z",
+    content: '"...the choice to buy the index and hold on is a no-brainer for us." - Morgan Housel',
+    createdAt: "2022-04-05T00:00:00.000Z",
+    updatedAt: "2022-04-05T00:00:00.000Z",
+    __v: 0,
+    ownerName: demoUserName,
+  },
+];

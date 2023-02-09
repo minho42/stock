@@ -26,7 +26,6 @@ export const Chart = ({ symbol, selectedTimeFrame, journals }) => {
   const fetchChartData = useCallback(async (symbol: string) => {
     // setIsLoading(true);
     try {
-      console.log(BACKEND_BASE_URL);
       const res = await fetch(`${BACKEND_BASE_URL}/data/chart/${symbol}`);
       if (!res.ok) {
         throw new Error("fetchChartData error");
