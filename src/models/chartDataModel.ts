@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose"
 
 const chartDataSchema = new mongoose.Schema(
   {
@@ -20,6 +20,4 @@ const chartDataSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const ChartData = mongoose.model("ChartData", chartDataSchema);
-
-module.exports = ChartData;
+export const ChartData = mongoose.model("ChartData", chartDataSchema);

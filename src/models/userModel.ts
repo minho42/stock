@@ -1,11 +1,32 @@
-const mongoose = require("mongoose");
-const validator = require("validator");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const Journal = require("./journalModel");
-const OwnedStock = require("./ownedStockModel");
+import {Model, Schema, HydratedDocument,model} from 'mongoose'
+import validator from "validator";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import {Journal} from "./journalModel";
+import {OwnedStock} from "./ownedStockModel";
 
-const userSchema = new mongoose.Schema(
+export interface IUser {
+  _id?: string;
+  name: string;
+  email: string;
+  password: string;
+  passwordResetToken?: string;
+  tokens: string[];
+  isSuperuser: boolean;
+}
+
+interface IUserMethods {
+  toJSON(): object;
+  generatePasswordResetToken():Promise<string>;
+  generateAuthToken():Promise<string>;
+}
+
+export interface UserModel extends Model<IUser, {}, IUserMethods> {
+  findByCredentials(email: string, password: string): Promise<HydratedDocument<IUser, IUserMethods>>;
+}
+
+
+const userSchema = new Schema<IUser, UserModel, IUserMethods>(
   {
     name: {
       type: String,
@@ -84,7 +105,7 @@ userSchema.methods.toJSON = function () {
   return userObject;
 };
 
-userSchema.methods.generatePasswordResetToken = async function () {
+userSchema.methods.generatePasswordResetToken = async function ():Promise<string> {
   const user = this;
   const token = jwt.sign({ _id: user._id.toString() }, process.env.PASSWORD_RESET_KEY, {
     expiresIn: "20 minutes",
@@ -94,7 +115,7 @@ userSchema.methods.generatePasswordResetToken = async function () {
   return token;
 };
 
-userSchema.methods.generateAuthToken = async function () {
+userSchema.methods.generateAuthToken = async function ():Promise<string> {
   const user = this;
   const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_SECRET_KEY, { expiresIn: "30d" });
   user.tokens = user.tokens.concat({ token });
@@ -132,6 +153,4 @@ userSchema.pre("remove", async function (next) {
   next();
 });
 
-const User = mongoose.model("User", userSchema);
-
-module.exports = User;
+export const User = model<IUser, UserModel, IUserMethods>("User", userSchema);

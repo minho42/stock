@@ -1,14 +1,14 @@
-const express = require("express");
-const { auth } = require("../middleware/authMiddleware");
-const router = express.Router();
-const {
+import express from"express"
+import { auth } from"../middleware/authMiddleware"
+
+export const router = express.Router();
+
+import {
   createOrUpdateOwnedStock,
   getOwnedStocks,
   deleteOwnedStock,
-} = require("../controllers/ownedStockController");
+} from "../controllers/ownedStockController"
 
 router.post("/ownedStocks", auth, createOrUpdateOwnedStock);
 router.get("/ownedStocks", auth, getOwnedStocks);
 router.delete("/ownedStocks/:id", auth, deleteOwnedStock);
-
-module.exports = router;

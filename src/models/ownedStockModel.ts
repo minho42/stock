@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose"
 
 const ownedStockSchema = new mongoose.Schema(
   {
@@ -19,6 +19,5 @@ const ownedStockSchema = new mongoose.Schema(
 
 // ownedStockSchema.index({ owner: 1, symbol: 1 }, { unique: true });
 
-const OwnedStock = mongoose.model("OwnedStock", ownedStockSchema);
+export const OwnedStock = mongoose.model("OwnedStock", ownedStockSchema);
 
-module.exports = OwnedStock;

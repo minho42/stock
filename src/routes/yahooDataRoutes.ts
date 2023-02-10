@@ -1,12 +1,12 @@
-const axios = require("axios");
-const express = require("express");
-const router = express.Router();
-const apicache = require("apicache");
-const ChartData = require("../models/chartDataModel");
+import axios from"axios"
+import express, {Request, Response} from"express"
+export const router = express.Router();
+import apicache from"apicache"
+import {ChartData} from"../models/chartDataModel"
 
 const cache = apicache.middleware;
 
-const fetchQuotesFromSearch = async (query) => {
+const fetchQuotesFromSearch = async (query: string) => {
   const quotesCount = 5;
   try {
     const { data } = await axios(
@@ -18,7 +18,7 @@ const fetchQuotesFromSearch = async (query) => {
   }
 };
 
-const fetchCurrency = async (fromTo) => {
+const fetchCurrency = async (fromTo:string):Promise<number> => {
   try {
     const { data } = await axios(
       `https://query1.finance.yahoo.com/v8/finance/chart/${fromTo}=X?&includePrePost=false&interval=3mo&useYfid=false&range=1mo&.tsrc=finance`
@@ -29,7 +29,7 @@ const fetchCurrency = async (fromTo) => {
   }
 };
 
-const fetchQuote = async (symbol) => {
+const fetchQuote = async (symbol:string) => {
   try {
     const { data } = await axios(`https://query1.finance.yahoo.com/v7/finance/quote?symbols=${symbol}`);
     return data.quoteResponse.result[0];
@@ -38,7 +38,7 @@ const fetchQuote = async (symbol) => {
   }
 };
 
-const fetchChartData = async (symbol) => {
+const fetchChartData = async (symbol:string) => {
   // TODO: timezone for asx: doesn't show up to the current date but like 2 days back...
   const period2 = Math.round(new Date().getTime() / 1000);
   try {
@@ -52,32 +52,32 @@ const fetchChartData = async (symbol) => {
   }
 };
 
-router.get("/data/search/:text", cache("7 days"), async (req, res) => {
+router.get("/data/search/:text", cache("7 days"), async (req: Request, res: Response) => {
   const text = req.params.text;
   try {
     const quotes = await fetchQuotesFromSearch(text);
     if (!quotes) {
       return res.status(404).send();
     }
-    const filteredQuotes = quotes.filter((quote) => quote.isYahooFinance && quote.typeDisp !== "Option");
+    const filteredQuotes = quotes.filter((quote) => quote.isYahooFinance && quote?.typeDisp !== "Option");
     res.send({ quotes: filteredQuotes });
   } catch (error) {
     console.log(error);
-    res.status(400).send(e);
+    res.status(400).send(error);
   }
 });
 
-router.get("/currency/USDAUD", cache("5 minutes"), async (req, res) => {
+router.get("/currency/USDAUD", cache("5 minutes"), async (req: Request, res: Response) => {
   const rate = await fetchCurrency("USDAUD");
   res.send({ rate });
 });
 
-router.get("/currency/AUDUSD", cache("5 minutes"), async (req, res) => {
+router.get("/currency/AUDUSD", cache("5 minutes"), async (req: Request, res: Response) => {
   const rate = await fetchCurrency("AUDUSD");
   res.send({ rate });
 });
 
-router.get("/data/quote/:symbol", cache("5 minutes"), async (req, res) => {
+router.get("/data/quote/:symbol", cache("5 minutes"), async (req: Request, res: Response) => {
   const symbol = req.params.symbol;
   try {
     const quote = await fetchQuote(symbol);
@@ -87,12 +87,12 @@ router.get("/data/quote/:symbol", cache("5 minutes"), async (req, res) => {
     res.send({ quote });
   } catch (error) {
     console.log(error);
-    res.status(400).send(e);
+    res.status(400).send(error);
   }
 });
 
 //
-router.get("/data/chart/:symbol", cache("5 minutes"), async (req, res) => {
+router.get("/data/chart/:symbol", cache("5 minutes"), async (req: Request, res: Response) => {
   // TODO: refactor, double try/catch block and logic
 
   const symbol = req.params.symbol.toUpperCase();
@@ -153,4 +153,3 @@ router.get("/data/chart/:symbol", cache("5 minutes"), async (req, res) => {
   }
 });
 
-module.exports = router;

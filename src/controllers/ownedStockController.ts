@@ -1,7 +1,8 @@
-const OwnedStock = require("../models/ownedStockModel");
-// const User = require("../models/userModel");
+import { Request, Response } from 'express'
+import {OwnedStock} from "../models/ownedStockModel"
+// import {User} from "../models/userModel"
 
-const createOrUpdateOwnedStock = async (req, res) => {
+export const createOrUpdateOwnedStock = async (req:Request, res:Response) => {
   console.log(req.body);
   try {
     const filter = { owner: req.user._id };
@@ -18,7 +19,7 @@ const createOrUpdateOwnedStock = async (req, res) => {
   }
 };
 
-// const createOwnedStock = async (req, res) => {
+// export const createOwnedStock = async (req:Request, res:Response) => {
 //   const ownedStock = new OwnedStock({
 //     ...req.body,
 //     owner: req.user._id,
@@ -31,7 +32,7 @@ const createOrUpdateOwnedStock = async (req, res) => {
 //   }
 // };
 
-const getOwnedStocks = async (req, res) => {
+export const getOwnedStocks = async (req:Request, res:Response) => {
   try {
     const ownedStocks = await OwnedStock.find({ owner: req.user._id });
     res.send(ownedStocks);
@@ -40,7 +41,7 @@ const getOwnedStocks = async (req, res) => {
   }
 };
 
-const deleteOwnedStock = async (req, res) => {
+export const deleteOwnedStock = async (req:Request, res:Response) => {
   try {
     const ownedStock = await OwnedStock.findOneAndDelete({
       _id: req.params.id,
@@ -57,8 +58,3 @@ const deleteOwnedStock = async (req, res) => {
   }
 };
 
-module.exports = {
-  createOrUpdateOwnedStock,
-  getOwnedStocks,
-  deleteOwnedStock,
-};

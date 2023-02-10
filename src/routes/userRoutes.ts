@@ -1,8 +1,8 @@
-const express = require("express");
-const { auth, authAdmin } = require("../middleware/authMiddleware");
-const router = express.Router();
+import express from "express"
+import { auth, authAdmin } from "../middleware/authMiddleware"
+export const router = express.Router();
 
-const {
+import {
   createUser,
   loginUser,
   logoutUser,
@@ -14,7 +14,7 @@ const {
   checkUser,
   passwordReset,
   passwordResetConfirm,
-} = require("../controllers/userController");
+} from"../controllers/userController"
 
 router.post("/users", createUser);
 router.post("/users/login", loginUser);
@@ -27,5 +27,3 @@ router.get("/users/me", auth, getUser);
 router.get("/users/all", authAdmin, getAllUser);
 router.patch("/users/me", auth, updateUser);
 router.delete("/users/me", auth, deleteUser);
-
-module.exports = router;

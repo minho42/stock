@@ -1,6 +1,7 @@
-const User = require("../models/userModel");
+import { Request, Response } from 'express'
+import  {User} from"../models/userModel"
 
-const createUser = async (req, res) => {
+export const createUser = async (req:Request, res:Response) => {
   const user = new User(req.body);
   try {
     await user.save();
@@ -16,7 +17,7 @@ const createUser = async (req, res) => {
   }
 };
 
-const loginUser = async (req, res) => {
+export const loginUser = async (req:Request, res:Response) => {
   try {
     const user = await User.findByCredentials(req.body.email, req.body.password);
     const token = await user.generateAuthToken();
@@ -34,7 +35,7 @@ const loginUser = async (req, res) => {
   }
 };
 
-const logoutUser = async (req, res) => {
+export const logoutUser = async (req:Request, res:Response) => {
   try {
     req.user.tokens = req.user.tokens.filter((token) => {
       return token.token !== req.token;
@@ -47,7 +48,7 @@ const logoutUser = async (req, res) => {
   }
 };
 
-const logoutAllUser = async (req, res) => {
+export const logoutAllUser = async (req:Request, res:Response) => {
   try {
     req.user.tokens = [];
     await req.user.save();
@@ -58,7 +59,7 @@ const logoutAllUser = async (req, res) => {
   }
 };
 
-const updateUser = async (req, res) => {
+export const updateUser = async (req:Request, res:Response) => {
   const updates = Object.keys(req.body);
   const allowedUpdates = ["name", "email", "password"];
   const isValidOperation = updates.every((update) => allowedUpdates.includes(update));
@@ -77,7 +78,7 @@ const updateUser = async (req, res) => {
   }
 };
 
-const deleteUser = async (req, res) => {
+export const deleteUser = async (req:Request, res:Response) => {
   try {
     await req.user.remove();
     res.clearCookie("token");
@@ -88,7 +89,7 @@ const deleteUser = async (req, res) => {
   }
 };
 
-const getAllUser = async (req, res) => {
+export const getAllUser = async (req:Request, res:Response) => {
   try {
     const users = await User.find({});
     res.send(users);
@@ -98,15 +99,15 @@ const getAllUser = async (req, res) => {
   }
 };
 
-const getUser = async (req, res) => {
+export const getUser = async (req:Request, res:Response) => {
   res.send(req.user);
 };
 
-const checkUser = async (req, res) => {
+export const checkUser = async (req:Request, res:Response) => {
   res.send(req.user);
 };
 
-const passwordReset = async (req, res) => {
+export const passwordReset = async (req:Request, res:Response) => {
   try {
     const user = await User.findOne({ email: req.body.email });
     if (!user) {
@@ -121,7 +122,7 @@ const passwordReset = async (req, res) => {
   }
 };
 
-const passwordResetConfirm = async (req, res) => {
+export const passwordResetConfirm = async (req:Request, res:Response) => {
   try {
     const user = await User.findOne({ passwordResetToken: req.body.token });
     if (!user) {
@@ -133,18 +134,4 @@ const passwordResetConfirm = async (req, res) => {
   } catch (error) {
     res.status(400).send();
   }
-};
-
-module.exports = {
-  createUser,
-  loginUser,
-  logoutUser,
-  logoutAllUser,
-  updateUser,
-  deleteUser,
-  getUser,
-  getAllUser,
-  checkUser,
-  passwordReset,
-  passwordResetConfirm,
 };

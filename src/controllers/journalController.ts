@@ -1,7 +1,8 @@
-const Journal = require("../models/journalModel");
-const User = require("../models/userModel");
+import { Request, Response } from 'express'
+import {Journal} from"../models/journalModel"
+import {User} from"../models/userModel"
 
-const createJournal = async (req, res) => {
+export const createJournal = async (req:Request, res:Response) => {
   console.log(req.body);
   const journal = new Journal({
     ...req.body,
@@ -16,7 +17,7 @@ const createJournal = async (req, res) => {
   }
 };
 
-const getJournals = async (req, res) => {
+export const getJournals = async (req:Request, res:Response) => {
   try {
     const journals = await Journal.find({ owner: req.user._id });
 
@@ -32,7 +33,7 @@ const getJournals = async (req, res) => {
   }
 };
 
-const getJournalsForUser = async (req, res) => {
+export const getJournalsForUser = async (req:Request, res:Response) => {
   const userId = req.params.userId;
   try {
     const journals = await Journal.find({ owner: userId });
@@ -51,7 +52,7 @@ const getJournalsForUser = async (req, res) => {
   }
 };
 
-const getJournal = async (req, res) => {
+export const getJournal = async (req:Request, res:Response) => {
   const _id = req.params.id;
 
   try {
@@ -68,7 +69,7 @@ const getJournal = async (req, res) => {
     res.status(500).send();
   }
 };
-const updateJournal = async (req, res) => {
+export const updateJournal = async (req:Request, res:Response) => {
   const updates = Object.keys(req.body);
   const allowedUpdates = ["isPublic", "action", "symbol", "amount", "price", "units", "date", "content"];
   const isValidOperation = updates.every((update) => allowedUpdates.includes(update));
@@ -94,7 +95,7 @@ const updateJournal = async (req, res) => {
     res.status(400).send(error);
   }
 };
-const deleteJournal = async (req, res) => {
+export const deleteJournal = async (req:Request, res:Response) => {
   try {
     const journal = await Journal.findOneAndDelete({
       _id: req.params.id,
@@ -109,13 +110,4 @@ const deleteJournal = async (req, res) => {
   } catch (error) {
     res.status(500).send(error);
   }
-};
-
-module.exports = {
-  createJournal,
-  getJournals,
-  getJournalsForUser,
-  getJournal,
-  updateJournal,
-  deleteJournal,
 };

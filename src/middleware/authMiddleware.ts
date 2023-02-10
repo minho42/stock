@@ -1,13 +1,18 @@
-const jwt = require("jsonwebtoken");
-const User = require("../models/userModel");
+import { Request, Response, NextFunction } from 'express'
+import jwt, {JwtPayload} from "jsonwebtoken"
+import {User} from "../models/userModel"
 
-const auth = async (req, res, next) => {
+interface IJwtPayload extends JwtPayload {
+  _id: string
+}
+
+export const auth = async (req:Request, res:Response, next:NextFunction) => {
   try {
-    const token = req.cookies.token;
+    const token:string = req.cookies.token;
     if (!token) {
       throw new Error("no jwt from cookies");
     }
-    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    const decoded  = jwt.verify(token, process.env.JWT_SECRET_KEY) as IJwtPayload;
     const user = await User.findOne({ _id: decoded._id, "tokens.token": token });
     if (!user) {
       throw new Error("!user");
@@ -23,14 +28,14 @@ const auth = async (req, res, next) => {
   }
 };
 
-const authAdmin = async (req, res, next) => {
+export const authAdmin = async (req:Request, res:Response, next:NextFunction) => {
   // TODO refactor: remove duplicate
   try {
     const token = req.cookies.token;
     if (!token) {
       throw new Error("no jwt from cookies");
     }
-    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY) as IJwtPayload;
     const user = await User.findOne({ _id: decoded._id, "tokens.token": token });
     if (!user) {
       throw new Error("!user");
@@ -48,4 +53,3 @@ const authAdmin = async (req, res, next) => {
   }
 };
 
-module.exports = { auth, authAdmin };

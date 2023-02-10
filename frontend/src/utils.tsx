@@ -2,7 +2,10 @@ import React from "react";
 import { BACKEND_BASE_URL } from "./globalVariables";
 import { IUser } from "./UserType";
 
-export const requestLogout = async (setUser: React.Dispatch<React.SetStateAction<IUser>>, navigate) => {
+export const requestLogout = async (
+  setUser: React.Dispatch<React.SetStateAction<IUser | null>>,
+  navigate
+) => {
   try {
     const res = await fetch(`${BACKEND_BASE_URL}/users/logout`, {
       method: "POST",
@@ -19,7 +22,10 @@ export const requestLogout = async (setUser: React.Dispatch<React.SetStateAction
   }
 };
 
-export const requestLogoutAll = async (setUser, navigate) => {
+export const requestLogoutAll = async (
+  setUser: React.Dispatch<React.SetStateAction<IUser | null>>,
+  navigate
+) => {
   try {
     const res = await fetch(`${BACKEND_BASE_URL}/users/logoutall`, {
       method: "POST",
