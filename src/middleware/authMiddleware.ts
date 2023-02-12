@@ -1,9 +1,10 @@
 import { Request, Response, NextFunction } from 'express'
 import jwt, {JwtPayload} from "jsonwebtoken"
+import { ObjectId } from 'mongodb';
 import {User} from "../models/userModel"
 
 interface IJwtPayload extends JwtPayload {
-  _id: string
+  _id: ObjectId
 }
 
 export const auth = async (req:Request, res:Response, next:NextFunction) => {

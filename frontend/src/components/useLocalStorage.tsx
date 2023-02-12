@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 const getLocalStorageValue = (key: string, initialValue: any) => {
   // console.log("getLocalStorageValue: " + key);
-  const value = JSON.parse(localStorage.getItem(key));
+  const value = JSON.parse(localStorage.getItem(key) || "");
   // console.log(`key: ${key}, value: ${value}, initialValue: ${initialValue}`);
   if (value !== null) {
     return value;
@@ -16,7 +16,7 @@ const getLocalStorageValue = (key: string, initialValue: any) => {
 const setLocalStorageValue = (key: string, value: string) => {
   try {
     localStorage.setItem(key, JSON.stringify(value));
-  } catch (error) {
+  } catch (error: any) {
     console.error(error.message);
   }
 };

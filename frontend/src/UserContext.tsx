@@ -1,7 +1,13 @@
 import React, { createContext, useState, useEffect } from "react";
 import { CheckUser } from "./CheckUser";
 import { IUser } from "./UserType";
-import { IUserContext } from "./UserContextType";
+
+export interface IUserContext {
+  user: IUser | null;
+  setUser: React.Dispatch<React.SetStateAction<IUser | null>>;
+  isLoading: boolean;
+  setIsLoading?: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
 export const UserContext = createContext<IUserContext | null>(null);
 

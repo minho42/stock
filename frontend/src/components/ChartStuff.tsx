@@ -2,7 +2,12 @@ import { useState, useEffect } from "react";
 import { useLocalStorage } from "./useLocalStorage";
 import { ChartCardList } from "./ChartCardList";
 import { ChartTimeFrameList } from "./ChartTimeFrameList";
-import { ITimeFrame } from "./TimeFrameType";
+
+export interface ITimeFrame {
+  name: string;
+  inDays: number;
+  inRealDays: number;
+}
 
 const timeFrames: ITimeFrame[] = [
   {

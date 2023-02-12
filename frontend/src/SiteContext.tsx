@@ -45,7 +45,7 @@ interface ISiteContextType {
 
 export const SiteProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user } = useContext(UserContext);
-  const [journals, setJournals] = useState<IJournal[] | []>([]);
+  const [journals, setJournals] = useState<IJournal[]>([]);
   const [isJournalChanged, setIsJournalChanged] = useState(false);
   const [uniqueSymbols, setUniqueSymbols] = useState([]);
   const [ownedSymbols, setOwnedSymbols] = useState([]);

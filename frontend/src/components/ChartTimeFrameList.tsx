@@ -1,4 +1,4 @@
-import { ITimeFrame } from "./TimeFrameType";
+import { ITimeFrame } from "./ChartStuff";
 
 export const ChartTimeFrameList: React.FC<{
   timeFrames: ITimeFrame[];
