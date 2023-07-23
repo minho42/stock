@@ -64,4 +64,6 @@ body {
   /* font-size: 14px; */
   /* font-size: 0.875rem; */
   /* background-color: #f9f9f9; */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
